@@ -65,7 +65,11 @@
             if(!empty($features)){
               $var = 1;
               foreach($features as $feature){ ?>
+<<<<<<< HEAD
                   <div class="greybox<?php echo $var; ?> rounded20 greyboxes text-center p-3">
+=======
+                  <div class="greybox<?php echo $var; ?> greyboxes text-center p-3">
+>>>>>>> 15f3c73649b913631f56b26009cd817e97b8b282
                     <i class="fa fa-bolt boltyellow" aria-hidden="true"></i>
 
                     <h2 class="mainmerriheader2 my-1 py-1"><?php echo $feature['title'] ?? ''; ?></h2>
@@ -99,6 +103,7 @@
             <div class="d-flex justify-content-center">
               <div>
                 <!-- learning product group -->
+<<<<<<< HEAD
                 <div class="accordion horizontalpadding3" id="accordionFeaturesOne">
                   <?php
                     $learning_product_groups = rwmb_meta('learning_product_group');
@@ -244,6 +249,155 @@
                   ?>
                   
                   
+=======
+                <div class="accordion" id="accordionFeaturesOne">
+                  <?php
+                      $learning_product_groups = rwmb_meta('learning_product_group');
+                      if(!empty($learning_product_groups)){
+                        foreach($learning_product_groups as $i => $item){ ?>
+                            <div class="dottedborderbottom py-2 <?php if($i == array_key_first($learning_product_groups)) echo 'dottedbordertop'; ?>">
+                              <div class="horizontalpadding">
+                                <div class="" id="heading<?php echo in_words($i+1); ?>">
+                                  <div
+                                    class=" d-flex justify-content-between align-items-center"
+                                    data-toggle="collapse"
+                                    data-target="#collapse<?php echo in_words($i+1); ?>"
+                                    aria-expanded="true"
+                                    aria-controls="collapse<?php echo in_words($i+1); ?>">
+                                    <div class="d-flex align-items-center">
+                                      <div class="accordionlogo mr-3 overflow-hidden">
+                                        <img
+                                          src="<?php echo wp_get_attachment_image_url($item['lpg_image']??'', 'full'); ?>"
+                                          alt=""
+                                          class="img-fluid"
+                                        />
+                                      </div>
+                                      <div>
+                                        <h2 class="classes mainmerriheader4 graycolor mb-0" style="font-family:Roboto">
+                                          <?php echo $item['lpg_title'] ?? ''; ?>
+                                        </h2>
+                                        <p class="generalparagraph mb-0">
+                                          <?php echo $item['lpg_snippet'] ?? ''; ?>
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div class="ml-4 ml-md-0">
+                                      <i class="fa fa-arrow-down fa-xs" aria-hidden="true"></i>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div
+                                  id="collapse<?php echo in_words($i+1); ?>"
+                                  class="collapse pb-3"
+                                  aria-labelledby="heading<?php echo in_words($i+1); ?>"
+                                  data-parent="#accordionFeaturesOne">
+                                  <div class="row mt-4">
+                                    <!-- product programs -->
+                                    <?php
+                                      $programs = $item['programs'] ?? '';
+                                      if(!empty($programs)){
+                                        foreach($programs as $inner_in => $program){ 
+                                          $program_id = $program['select_program'] ?? '';
+                                          $program_tags = $program['tags'] ?? '';
+                                          $is_popup = $program['program_is_popup'] ?? '';
+                                        ?>
+                                          <div class="col-lg-6 my-2">
+                                              <div class="bg-white p-3">
+                                                <button class="smallbtn btn p-1 highlight_btn" 
+                                                  style="background-color:<?php echo ($program['highlight_info_color'] ?? '')?$program['highlight_info_color']:'#167C1A'; ?>;border-color:<?php echo ($program['highlight_info_color'] ?? '')?$program['highlight_info_color']:'#167C1A'; ?>"><?php echo $program['highlight_info'] ?? ''; ?></button>
+
+                                                <h4 class="smallmerriheader mb-0 my-1 special-header">
+                                                  <?php echo $program['programs_title'] ?? ''; ?>
+                                                </h4>
+
+                                                <div class="mt-4">
+                                                  <div class="d-flex justify-content-between align-items-center">
+                                                    <!-- tags -->
+                                                    <div class="d-flex">
+                                                      <?php
+                                                        if(!empty($program_tags)){
+                                                          foreach($program_tags as $ti => $tag){ ?>
+                                                              <div class="mr-3 <?php if($ti == array_key_last($program_tags)) echo 'mr-0'; ?>">
+                                                                <p class="smallparagraph mb-2">
+                                                                  <?php echo $tag['tag_label'] ?? ''; ?>
+                                                                </p>
+                                                                <div class="roundedgreycontainer p-2">
+                                                                  <p class="generalparagraph mb-0">
+                                                                    <?php echo $tag['tag_content'] ?? ''; ?>
+                                                                  </p>
+                                                                </div>
+                                                              </div>
+                                                          <?php }
+                                                        }
+                                                      ?> 
+                                                    </div>
+                                                    <!-- end-tags -->
+                                                    
+                                                    <?php
+                                                      $pixel_grp = $program['programs_fb_pixel'] ?? '';
+
+                                                      if($is_popup == "yes"){ ?>
+                                                        <a href="" data-toggle="modal" onclick="fbq('trackCustom', '<?php echo $pixel_grp['programs_event']??''; ?>', {scenario:<?php echo $pixel_grp['programs_scenario']??''; ?>})" data-target="#programsModal<?php echo $i."-".$inner_in; ?>">
+                                                          <div class="bluecolorbg rounded px-3 py-2">
+                                                            <i class="fa fa-long-arrow-right text-white" aria-hidden="true"></i>
+                                                          </div>
+                                                        </a>
+                                                        <div class="modal fade modal-full-screen" id="programsModal<?php echo $i."-".$inner_in; ?>" data-backdrop="static" data-keyboard="false">
+                                                          <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                                            <div class="modal-content mb-5">
+                                                              <div class="modal-header headerbg px-md-5 px-3 py-md-1 py-1">
+                                                                <div class="mx-1 ml-auto">
+                                                                  <button type="button" class="closemodalbtn btn px-4" data-dismiss="modal" style="padding:5px 30px">
+                                                                    close
+                                                                  </button>
+                                                                </div>
+                                                              </div>
+                                                              <div class="d-block">
+                                                                <div class="med-grey-bg2 p-3 pl-md-5">
+                                                                  <h4 class="mainmerriheader2">
+                                                                  <?php echo $program['form_title'] ?? ''; ?>
+                                                                  </h4>
+                                                                  <p class="generalparagraph mb-0 pb-md-2">
+                                                                    <?php echo $program['form_snippet'] ?? ''; ?>
+                                                                  </p>
+                                                                </div>
+                                                              </div>
+                                                              <div class="modal-body p-0 m-0 px-md-4">
+                                                                <?php
+                                                                  $form_id = $program['form_id']??'';
+                                                                  echo do_shortcode("[gravityform id='".$form_id."' title='false' description='false' ajax='false']");
+                                                                ?>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      <?php }else{ ?>
+                                                        <a href="<?php echo get_permalink($program_id); ?>" onclick="fbq('trackCustom', '<?php echo $pixel_grp['programs_event']??''; ?>', {scenario:<?php echo $pixel_grp['programs_scenario']??''; ?>})">
+                                                          <div class="bluecolorbg rounded px-3 py-2">
+                                                              <i class="fa fa-long-arrow-right text-white" aria-hidden="true"></i>
+                                                            </div>
+                                                        </a>
+                                                      <?php }
+                                                    ?>
+                                                      
+                                                  </div>
+                                                </div>
+                                              </div>
+                                          
+                                          </div>
+                                        <?php }
+                                      }
+                                    ?>
+                                    <!-- end-product programs -->
+                                  </div>
+                                </div>
+                                </div>
+                            </div>
+                        <?php }
+                      }
+                  ?>
+>>>>>>> 15f3c73649b913631f56b26009cd817e97b8b282
                 </div>
                 <!-- end-learning product group -->
 

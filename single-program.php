@@ -1481,7 +1481,6 @@
                                 </div>
                               </div>
                               <!-- modal -->
-
                             <?php }
                           }
                       }elseif($program_type == 'single-course-program'){ 
